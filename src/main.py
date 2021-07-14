@@ -1,8 +1,9 @@
+import os
+import sys
+
 import pytesseract
 from pdf2image import convert_from_path
 from PIL import Image
-
-import os
 
 from rich.progress import track
 from rich.console import Console
@@ -22,7 +23,7 @@ def extract_text(pdf):
 
     image_counter = 1
 
-    for page in track(pages, description="[cyan]Converting pages to images ..."):
+    for page in track(pages, description=f"[cyan]Converting pages ..."):
         page_name = "temp/page_" + str(image_counter) + ".jpg"  
         page.save(page_name, "JPEG")
         image_counter += 1
@@ -40,10 +41,8 @@ def extract_text(pdf):
     # All contents of all images are added to the same file
     with open(outfile, "a") as f:
         # Iterate from 1 to total number of pages
-        for i in track(range(1, filelimit + 1), description='[cyan]Extracting text from images ...'):
-
+        for i in track(range(1, filelimit + 1), description=f'[cyan]Extracting text from image ...'):
             filename = "temp/page_"+str(i)+".jpg"
-                
             # Recognize the text as string in image using pytesserct
             text = str(((pytesseract.image_to_string(Image.open(filename)))))
         
@@ -63,3 +62,4 @@ def extract_text(pdf):
 pdf = "dataset/test_complicated.pdf"
 
 extract_text(pdf)
+
