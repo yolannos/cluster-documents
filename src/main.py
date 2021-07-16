@@ -62,4 +62,4 @@ def extract_text(pdf):
 pdf = "dataset/test_complicated.pdf"
 
 extract_text(pdf)
-
+    
