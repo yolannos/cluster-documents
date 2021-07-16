@@ -1,5 +1,10 @@
-import src.utils.extract_text as text
+import src.utils.extract_text as extract
 
 pdf = './dataset/testpdf.pdf'
-text.extract_text(pdf)
+
+extract = extract.extractText(pdf)
+
+extract._pdf_to_jpg()
+extract._extract_tess()
+extract.to_txt()
 

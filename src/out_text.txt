@@ -24,7 +24,7 @@ Year ended 31 December 2017
  
 
 Page
-Directors’ annual report (incorporating the director's report) 1
+Directors' annual report (incorporating the director's report) 1
 Independent examiner's report to the directors 6
 Statement of financial activities (including income and
 expenditure account) 7
@@ -349,6 +349,10 @@ P Arar
  
 
  
+
+ 
+
+ 
 The Rationalist Association
 
 Company Limited by Guarantee
@@ -403,7 +407,7 @@ Total Total
 funds funds
 Note £
 Fixed Assets
-Tangible fixed assets T7 1,169 2,605
+Tangible fixed assets 7 1,169 2,605
 Investments 18 818,253 795,533
 
 819,422 798,138
@@ -742,7 +746,7 @@ The Rationalist Association is a company, registered in England and Wales, limit
 In the event of the charity being wound up, the liability in respect of the guarantee is limited to
 £10 per member of the charity.
 
-5. Donations and legacies Total Funds Total Funds
+5. Donations and legacies Total Funds — Total Funds
 2017 2016
 
 Donations £ £
@@ -776,7 +780,7 @@ New Humanist digital subscriptions 2,870 2,870
 New Humanist magazine sales 8,475 8,475
 Book, Ads & Inserts sales 426 426
 84,799 84,799
-7. Investment income Unrestricted
+T. Investment income Unrestricted
 Funds
 2017 £
 Interest and investment income 35,627
@@ -999,7 +1003,7 @@ Total Fund
 
 5,521
 2,108
-35
+30
 18,323
 6,872
 68,368
@@ -1251,10 +1255,10 @@ Revaluation reserve 283,219 - - 48,604 331,823
 687,580 147,965 (173,888) 49,994 711,651
 Restricted funds Gains and At
 At 1 Jan 2017 Income Expenditure losses 31 Dec 2017
-£ £ £ £ £
+£ e £ £ £
 Restricted fund 64,141 3,254 - - 67,395
 Revaluation reserve 16,588 : = 4,824 21,412
-807290 _ 3,254 BMA ___88, 807
+807290 _ 3254 BMA ___88, 807
 There were no restricted funds received during the year. The restricted reserves are in relation to
 a legacy received in 2008 and the use of the reserve is limited to the relief of poverty among
 members or former members, or their dependents, or employees or former employees and their
@@ -1305,7 +1309,7 @@ The Rationalist Press Association (RPA) and the Rationalist Association are rela
 virtue of having common control. On 1 January 2003 all the trading activities of the Rationalist
 Press Association were transferred to the Rationalist Association. On 31 March 2003 all the
 assets of the Rationalist Trust were transferred to the Rationalist Association. During 2017 the
-RPA made a fnil (2016: £nil) gift aid donation to the Rationalist Assocation. At 31 December
+RPA made a f£nil (2016: £nil) gift aid donation to the Rationalist Assocation. At 31 December
 2017 £1441 was due from the RPA (2016: £805).
 
 21

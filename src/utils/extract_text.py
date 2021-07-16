@@ -4,6 +4,7 @@ import sys
 import pytesseract
 from pdf2image import convert_from_path
 from PIL import Image
+import pdftotext
 
 from rich.progress import track
 from rich.console import Console
@@ -13,48 +14,51 @@ from rich.traceback import install
 install()
 console = Console()
 
-# Store all the pages of the PDF in a variable
-text = Text("Preprocessing pages ...")
-text.stylize("bold green")
-console.print(text)
 
+class extractText():
 
-def extract_text(file):
-    pages = convert_from_path(file)
+    def __init__(self, file):
+        
+        self.file = file              
+        self.path_ = 'temp/'
 
-    image_counter = 1
+    def _pdf_to_jpg(self):
 
-    for page in track(pages, description=f"[cyan]Converting pages ..."):
-        page_name = "temp/page_" + str(image_counter) + ".jpg"
-        page.save(page_name, "JPEG")
-        image_counter += 1
+        console.print("[cyan]Preprocessing files ... :bear:")
+        self.pages = convert_from_path(self.file) #conversion 
+        self.image_counter = 1
+        for page in track(self.pages, description=f"[cyan]Converting pages ..."):
+            page_name = f"{self.path_}page_{str(self.image_counter)}.jpg"
+            page.save(page_name, "JPEG")
+            self.image_counter += 1
 
-    # Variable to get count of total number of pages
-    filelimit = image_counter - 1
+    def _extract_tess(self):
 
-    # Creating a text file to write the output
-    outfile = "out_text.txt"
-    with open(outfile, "w") as f:
-        print("Empty output file created")
+        filelimit = self.image_counter
+        self.text_extracted = ''
+        for i in track(range(1, filelimit), description=f'[cyan]Extracting text from images ...'):
+                filename = f"{self.path_}page_{str(i)}.jpg"
+                # Recognize the text as string in image using pytesserct
+                text_extract = str((pytesseract.image_to_string(Image.open(filename))))
 
-    # Open the file in append mode so that
-    # All contents of all images are added to the same file
-    with open(outfile, "a") as f:
-        # Iterate from 1 to total number of pages
-        for i in track(range(1, filelimit + 1), description=f'[cyan]Extracting text from image ...'):
-            filename = "temp/page_" + str(i) + ".jpg"
-            # Recognize the text as string in image using pytesserct
-            text_extract = str((pytesseract.image_to_string(Image.open(filename))))
+                text_extract = text_extract.replace('-\n', '')  # Cleaning line-break/hyphen
 
-            text_extract = text_extract.replace('-\n', '')  # Cleaning line-break/hyphen
+                self.text_extracted += text_extract
 
-            # Finally, write the processed text to the file.
-            f.write(text_extract)
+    def to_txt(self):
 
-    files = os.listdir("temp/")
+        # Creating a text file to write the output
+        outfile = "out_text.txt"
+        with open(outfile, "w") as f:
 
-    # deleting files from temp/
-    for file in track(files, description="[cyan]Deleting images from temp/ ..."):
-        os.remove(f'temp/{file}')
+            f.write(self.text_extracted)
+            console.print("[cyan]Text file created ... :wolf:")
 
-    console.print("Everything is all set for categorising your file! :thumbs_up:")
+    def del_txt(self, path='temp/'):
+        # removing files from temp/
+
+        files = os.listdir(path)      
+        for file in track(files, description="[cyan]Deleting images from temp/ ..."):
+            os.remove(f'temp/{file}')
+
+        console.print("Everything is all set for categorising your file! :thumbs_up:")
