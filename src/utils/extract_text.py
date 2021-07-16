@@ -20,7 +20,7 @@ class extractText():
     def __init__(self, file):
         
         self.file = file              
-        self.path_ = 'temp/'
+        self.path_txt_ = 'temp/'
 
     def _pdf_to_jpg(self):
 
@@ -35,7 +35,6 @@ class extractText():
     def _extract_tess(self):
 
         filelimit = self.image_counter
-        self.text_extracted = ''
         for i in track(range(1, filelimit), description=f'[cyan]Extracting text from images ...'):
                 filename = f"{self.path_}page_{str(i)}.jpg"
                 # Recognize the text as string in image using pytesserct
@@ -43,7 +42,24 @@ class extractText():
 
                 text_extract = text_extract.replace('-\n', '')  # Cleaning line-break/hyphen
 
-                self.text_extracted += text_extract
+                return text_extract
+
+    def _pdf_to_text(self):
+
+        with open(self.file, "rb") as f:
+            pdf = pdftotext.PDF(f)
+            self.text_extracted = " ".join([page for page in pdf])
+            self.text_extracted =  " ".join(self.text_extracted.split())
+            return self.text_extracted
+
+    def extract(self):
+
+        try:
+            return self._pdf_to_text()
+        
+        except:
+            self._pdf_to_jpg()
+            return self._extract_tess()
 
     def to_txt(self):
 
