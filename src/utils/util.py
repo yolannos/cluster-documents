@@ -45,7 +45,16 @@ def cleaning(document):
 
     # Create list of word tokens after removing stopwords
     filtered_sentence =[] 
-
+    nlp.Defaults.stop_words |= {'total', 'report', 'annual', 'period', 'date', 'para', 'statement', 'number', 'expenditure', 
+                       'director', 'result', 'financial', 'review', 'strategy', 'committee', 'executive', 'page',
+                       'trustee', 'charity', 'principal', 'signature', 'disclosure', 'performance', 'work',
+                       'association', 'trust', 'behalf', 'secretary', 'meeting', 'council', 'year', 'end', 'give',
+                       'content', 'message', 'chairman', 'chief', 'officer', 'audit', 'independent', 'charitable',
+                       'auditor', 'balance', 'budget', 'end', 'road', 'investment', 'fund', 'cash', 'examiner', 
+                       'january', 'february', 'march', 'april', 'may', 'june', 'july', 'asset',  'accounting',
+                       'general', 'account', 'name', 'unrestricted', 'accordance', 'continue', 'restrict',
+                       'cost', 'value', 'company', 'also', 'scheme', 'tot', 'provide',
+                       'august', 'september', 'october', 'november', 'december', 'income', 'fund', 'examination'}
     for word in token_list:
         lexeme = nlp.vocab[word]
         if lexeme.is_stop == False:

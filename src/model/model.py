@@ -4,6 +4,8 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import TruncatedSVD
 from fcmeans import FCM
+from wordcloud import WordCloud
+from matplotlib import pyplot as plt
 import pickle
 
 
@@ -79,3 +81,22 @@ class ClusterModel():
 
         with open('decomposition.pkl', 'wb') as f:
             pickle.dump(self.decomposition, f)
+
+    def to_wordcloud(self):
+
+        with open('model.pkl', 'rb') as f:
+            model = pickle.load(f)
+
+        # result={'cluster':model.labels_,'wiki':self.in_documents}
+        # result=pd.DataFrame(result)
+        # for k in range(0,true_k):
+        #     s=result[result.cluster==k]
+        #     text=s['wiki'].str.cat(sep=' ')
+        #     text=text.lower()
+        #     text=' '.join([word for word in text.split()])
+        #     wordcloud = WordCloud(max_font_size=50, max_words=100, background_color="white").generate(text)
+        #     print(f'Cluster: {k}')
+        #     plt.figure()
+        #     plt.imshow(wordcloud, interpolation="bilinear")
+        #     plt.axis("off")
+        #     plt.show()
