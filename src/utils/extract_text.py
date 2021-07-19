@@ -17,7 +17,11 @@ console = Console()
 
 class extractText():
 
-    def __init__(self, file):
+    def __init__(self, file, method='text'):
+        '''
+        file : path to the pdf to be extracted
+        method : "text" or "ocr"
+        '''
         
         self.file = file              
         self.path_txt_ = 'temp/'

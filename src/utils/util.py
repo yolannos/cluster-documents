@@ -3,7 +3,33 @@ import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
 import string
 import pickle
-from rich.progress import track
+
+import utils.extract_text as extract_text
+import utils.util as util
+
+def prediction(path):
+
+    # extract text from pdf
+    extract = extract_text.extractText(path)
+    doc = extract.extract()
+
+    # cleaning of the text extracted
+    doc = util.cleaning(doc)
+
+    # load the different tools needed for the prediction
+    with open('model/model.pkl', 'rb') as f:
+        model = pickle.load(f)
+    with open('model/vectorizer.pkl', 'rb') as f:
+        vectorizer = pickle.load(f)
+    with open('model/decomposition.pkl', 'rb') as f:
+        decomposition = pickle.load(f)
+
+    # apply the necessary transofrmations
+    trans = vectorizer.transform([doc]) # input must be a list of string aka whole text in one str
+    trans_svd = decomposition.transform(trans)
+
+    # execute the prediction
+    return model.predict(trans_svd)
 
 def cleaning(document):
     # Load English tokenizer, tagger, parser and NER
