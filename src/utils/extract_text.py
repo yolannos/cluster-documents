@@ -23,6 +23,9 @@ class extractText():
         self.path_txt_ = 'temp/'
 
     def _pdf_to_jpg(self):
+        '''
+        Conversion from PDF to JPEG used in the OCR-approach
+        '''
 
         console.print("[cyan]Preprocessing files ... :bear:")
         self.pages = convert_from_path(self.file) #conversion 
@@ -33,6 +36,9 @@ class extractText():
             self.image_counter += 1
 
     def _extract_tess(self):
+        '''
+        Method to extract text from PDF via OCR-approach
+        '''
 
         filelimit = self.image_counter
         for i in track(range(1, filelimit), description=f'[cyan]Extracting text from images ...'):
@@ -45,6 +51,9 @@ class extractText():
                 return text_extract
 
     def _pdf_to_text(self):
+        '''
+        Method to extract text from PDF via a "simple" approach
+        '''
 
         with open(self.file, "rb") as f:
             pdf = pdftotext.PDF(f)
@@ -53,6 +62,10 @@ class extractText():
             return self.text_extracted
 
     def extract(self):
+        '''
+        Try to extract text from Simple-approach. 
+        If no text to select, use the OCR-approach
+        '''
 
         try:
             return self._pdf_to_text()
@@ -62,8 +75,9 @@ class extractText():
             return self._extract_tess()
 
     def to_txt(self):
+        '''
+        '''
 
-        # Creating a text file to write the output
         outfile = "out_text.txt"
         with open(outfile, "w") as f:
 

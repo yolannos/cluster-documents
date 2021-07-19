@@ -4,21 +4,28 @@ import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import TruncatedSVD
 
-pdf = './dataset/testpdf.pdf'
+pdf = './dataset/test3.pdf'
 
 extract = extract.extractText(pdf)
 
 doc = extract.extract()
 
-doc = [util.cleaning(doc)]
+doc = util.cleaning(doc)
 
-with open('model_kmeans.pkl', 'rb') as f:
+
+with open('model/model.pkl', 'rb') as f:
     model = pickle.load(f)
 
-vectorizer = TfidfVectorizer(analyzer='word', stop_words='english')
-trans = vectorizer.fit_transform(doc) # input must be a list of string aka whole text in one str
-svd = TruncatedSVD(100)
-trans_svd = svd.fit_transform(trans)
+with open('model/vectorizer.pkl', 'rb') as f:
+    vectorizer = pickle.load(f)
+
+with open('model/decomposition.pkl', 'rb') as f:
+    decomposition = pickle.load(f)
+
+
+trans = vectorizer.transform([doc]) # input must be a list of string aka whole text in one str
+trans_svd = decomposition.transform(trans)
 
 x = model.predict(trans_svd)
-print(type(trans))
+print(x)
+# print(type(trans))
