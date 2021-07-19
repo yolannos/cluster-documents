@@ -10,7 +10,7 @@ import utils.util as util
 def prediction(path):
 
     # extract text from pdf
-    extract = extract_text.extractText(path)
+    extract = extract_text.ExtractText(file=path, method='text')
     doc = extract.extract()
 
     # cleaning of the text extracted
