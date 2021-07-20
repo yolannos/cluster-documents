@@ -10,14 +10,15 @@ from time import sleep
 
 def classification(foldername, filenames):
     # layout the form
-    layout = [[sg.InputText('Processing ... ', readonly=True, key='-IN-')],
-              [sg.ProgressBar(1, orientation='h', auto_size_text= True, key='progress')],
+    layout = [[sg.Text('Processing ... ', key='-IN-')],
+              [#sg.Text('', key='_PROGTEXT_'),
+              sg.ProgressBar(1, orientation='h', auto_size_text= True, key='+PROGRESS+')],
               [sg.Cancel()]]
 
     # create the form`
     window = sg.Window('Classifying documents ...', layout, size=(400,50))
-    input = window['-IN-']
-    progress_bar = window['progress']
+    texte = window['-IN-']
+    progress_bar = window['+PROGRESS+']
     # loop that would normally do something useful
     try:
 
@@ -27,7 +28,7 @@ def classification(foldername, filenames):
 
             if event == 'Cancel' or event == None:
                 return 2
-                break
+                
             sleep(0.5) #for testing
             # # call of the function to classifiy the documents
             # in_path = os.path.join(foldername, file)
@@ -40,9 +41,12 @@ def classification(foldername, filenames):
             # # move to the document to the right directory
             # os.rename(os.path.join(in_path), os.path.join(out_path,str(cluster[0]),file))
 
-            progress_bar.update_bar(index+1, len(filenames))
+            # progress_bar.update_bar(index+1, len(filenames))
+            progress_bar.UpdateBar(index+1, len(filenames))
+            texte.Update(f'Processing ... {file}')
         window.close()
         return 1
+
     except Exception as e:
         print(e)
         window.close()
@@ -51,7 +55,7 @@ def classification(foldername, filenames):
     
 
 def no_selection():
-    layout = [[sg.Text('No folder selected!')],
+    layout = [[sg.Text('No folder selected or no PDF\'s in selected folder.')],
                [sg.OK()]]
     window = sg.Window("Warning!", layout, size=(200, 50))
     while True:
@@ -110,7 +114,7 @@ def main():
             break
 
         if event == 'FolderBrowse':
-            foldername = sg.PopupGetFolder('Select folder', no_window=True)
+            foldername = sg.PopupGetFolder('Please select a folder', no_window=True)
             if foldername: # `None` when clicked `Cancel` - so I skip it
                 filenames = sorted([f for f in os.listdir(foldername) if f.endswith('.pdf')])
                 # it use `key='files'` to `Multiline` widget
@@ -142,3 +146,4 @@ def restore():
 if __name__ == '__main__':
     main()
     # restore()
+    # sg.main()
