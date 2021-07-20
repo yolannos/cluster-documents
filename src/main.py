@@ -28,18 +28,18 @@ def classification(foldername, filenames):
             if event == 'Cancel' or event == None:
                 return 2
                 
-            sleep(0.5) #for testing
-            # # call of the function to classifiy the documents
-            # in_path = os.path.join(foldername, file)
-            # out_path = os.path.join('output/')
+            # sleep(0.5) #for testing
+            # call of the function to classifiy the documents
+            in_path = os.path.join(foldername, file)
+            out_path = os.path.join('output/')
 
-            # cluster = util.prediction(in_path)
+            cluster = util.prediction(in_path)
 
-            # # create the directory if not already there
-            # os.makedirs(os.path.join(out_path,str(cluster[0])), exist_ok=True)
-            # # move to the document to the right directory
-            # os.rename(os.path.join(in_path), os.path.join(out_path,str(cluster[0]),file))
-            # progress_bar.update_bar(index+1, len(filenames))
+            # create the directory if not already there
+            os.makedirs(os.path.join(out_path,str(cluster[0])), exist_ok=True)
+            # move to the document to the right directory
+            os.rename(os.path.join(in_path), os.path.join(out_path,str(cluster[0]),file))
+            progress_bar.update_bar(index+1, len(filenames))
             progress_bar.UpdateBar(index+1, len(filenames))
             texte.Update(f'Processing ... {file}')
         window.close()
@@ -178,6 +178,6 @@ def restore():
 
 if __name__ == '__main__':
     # main()
-    # restore()
+    restore()
     # sg.main()
-    starting_window()
+    # starting_window()
