@@ -11,8 +11,7 @@ from time import sleep
 def classification(foldername, filenames):
     # layout the form
     layout = [[sg.Text('Processing ... ', key='-IN-')],
-              [#sg.Text('', key='_PROGTEXT_'),
-              sg.ProgressBar(1, orientation='h', auto_size_text= True, key='+PROGRESS+')],
+              [sg.ProgressBar(1, orientation='h', auto_size_text= True, key='+PROGRESS+')],
               [sg.Cancel()]]
 
     # create the form`
@@ -104,6 +103,7 @@ def make_window():
     return window
 
 def main():
+
     filenames = ''
     window = make_window()
 
@@ -134,6 +134,37 @@ def main():
 
     window.close()
 
+def starting_window():
+    layout = [
+            [sg.ProgressBar(1, orientation='h', auto_size_text= True, key='+PROGRESS+', bar_color=('blue',None))],
+            [sg.Text('', key='-IN-', justification='center')]
+            ]
+    window = sg.Window("YoCorp", layout, size=(950, 550), background_image='../assets/logo.png')
+    progress_bar = window['+PROGRESS+']
+    text_bar = window['-IN-']
+    
+    text = {0:"Loading unecessary files ...",
+            3:"Trying to not make inconsistent clusted ...",
+            5:"Trying to not make inconsistent clusted: Failed.",
+            10:"Loading some other components ...",
+            11: "Almost there",
+            13: "Here you go, motors launched!"}
+            
+    for i in range(16):
+        # check to see if the cancel button was clicked and exit loop if clicked
+        event, values = window.read(timeout=0)
+
+        if event == 'Cancel' or event == None:
+            break
+        sleep(0.5)    
+        progress_bar.UpdateBar(i+1, 16)
+        try:
+            text_bar.Update(text[i])
+        except:
+            pass
+
+    window.close()
+    main()
 # for presentation purpose
 def restore():
     in_path = 'input/'
@@ -144,6 +175,7 @@ def restore():
                 os.rename(os.path.join(parent, fn), os.path.join(in_path, fn))
 
 if __name__ == '__main__':
-    main()
+    # main()
     # restore()
     # sg.main()
+    starting_window()

@@ -1,2 +1,0 @@
-def tools():
-    return None
