@@ -91,9 +91,9 @@ def make_window():
     # sg.theme('SystemDefaultForReal')
 
     layout = [
-        [sg.Input(), sg.Button('FolderBrowse')],
+        [sg.Text('Please select a folder:', key='_SELECT_'), sg.Button('Browse', size=(80,40))],
 
-        [sg.Text('Files')],
+        [sg.Text('List of files:')],
         [sg.Multiline(key='files', size=(60,30), autoscroll=True)],
 
         [sg.Button('Classify', auto_size_button=True), sg.Cancel()],    
@@ -106,19 +106,20 @@ def main():
 
     filenames = ''
     window = make_window()
-
+    texte_folder = window.FindElement('_SELECT_')
     while True:
         event, values = window.read()
         
         if event == sg.WIN_CLOSED or event == 'Cancel':
             break
 
-        if event == 'FolderBrowse':
+        if event == 'Browse':
             foldername = sg.PopupGetFolder('Please select a folder', no_window=True)
             if foldername: # `None` when clicked `Cancel` - so I skip it
                 filenames = sorted([f for f in os.listdir(foldername) if f.endswith('.pdf')])
                 # it use `key='files'` to `Multiline` widget
                 window['files'].update("\n".join(filenames))
+                texte_folder.Update(foldername)
                 # print(os.path(foldername))
         if event == 'Classify':
             if filenames:
@@ -144,12 +145,12 @@ def starting_window():
     text_bar = window['-IN-']
     
     text = {0:"Loading unecessary files ...",
-            3:"Trying to not make inconsistent clusted ...",
-            5:"Trying to not make inconsistent clusted: Failed.",
+            3:"Trying to not make inconsistent clusters ...",
+            5:"Trying to not make inconsistent clusters: Failed.",
             10:"Loading some other components ...",
             11: "Almost there",
             13: "Here you go, motors launched!"}
-            
+
     for i in range(16):
         # check to see if the cancel button was clicked and exit loop if clicked
         event, values = window.read(timeout=0)
@@ -165,6 +166,7 @@ def starting_window():
 
     window.close()
     main()
+    
 # for presentation purpose
 def restore():
     in_path = 'input/'
