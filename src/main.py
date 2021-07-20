@@ -39,7 +39,6 @@ def classification(foldername, filenames):
             # os.makedirs(os.path.join(out_path,str(cluster[0])), exist_ok=True)
             # # move to the document to the right directory
             # os.rename(os.path.join(in_path), os.path.join(out_path,str(cluster[0]),file))
-
             # progress_bar.update_bar(index+1, len(filenames))
             progress_bar.UpdateBar(index+1, len(filenames))
             texte.Update(f'Processing ... {file}')
@@ -89,6 +88,7 @@ def error():
 def make_window():
 
     # sg.theme('SystemDefaultForReal')
+
 
     layout = [
         [sg.Text('Please select a folder:', key='_SELECT_'), sg.Button('Browse', size=(80,40))],
