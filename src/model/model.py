@@ -11,7 +11,7 @@ import pickle
 
 class ClusterModel():
 
-    def __init__(self, input_file='in_documents.pkl', model='k_means', n_cluster=6):
+    def __init__(self, input_file='../dataset/in_documents.pkl', model='k_means', n_cluster=6):
         '''
         input_file : trained and cleaned data-set as pickle file
         model : clustering method to apply
