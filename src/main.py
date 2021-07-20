@@ -23,7 +23,6 @@ def main():
         os.rename(os.path.join(in_path,file), os.path.join(out_path,str(cluster[0]),file))
         
     print(f'\r Process is done.', end= '')
-    sys.stdout.flush()
 
 def restore():
     in_path = 'input/'
@@ -35,3 +34,4 @@ def restore():
                 
 if __name__ == "__main__":
     main()
+    restore()
