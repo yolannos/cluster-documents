@@ -17,7 +17,7 @@ def main():
     for file in files:
         print(f'\r File {file} is in process ...', end= '')
         sys.stdout.flush()
-        cluster = util.prediction(os.path.join(in_path,file))
+        cluster = util.prediction(os.path.join(in_path,file)) 
 
         os.makedirs(os.path.join(out_path,str(cluster[0])), exist_ok=True)
         os.rename(os.path.join(in_path,file), os.path.join(out_path,str(cluster[0]),file))
