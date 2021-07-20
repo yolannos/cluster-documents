@@ -4,27 +4,133 @@ import utils.util as util
 import model.model as cluster
 import utils.extract_text as extract_text
 
-# if you want to change the model, re-run the line below with the appropriate model k_means;c_means
-# model = cluster.ClusterModel(model='k_means')
+import PySimpleGUIQt as sg
+from time import sleep
+
+
+def classification(foldername, filenames):
+    # layout the form
+    layout = [[sg.InputText('Processing ... ', readonly=True, key='-IN-')],
+              [sg.ProgressBar(1, orientation='h', auto_size_text= True, key='progress')],
+              [sg.Cancel()]]
+
+    # create the form`
+    window = sg.Window('Classifying documents ...', layout, size=(400,50))
+    input = window['-IN-']
+    progress_bar = window['progress']
+    # loop that would normally do something useful
+    try:
+
+        for index, file in enumerate(filenames):
+            # check to see if the cancel button was clicked and exit loop if clicked
+            event, values = window.read(timeout=0)
+
+            if event == 'Cancel' or event == None:
+                return 2
+                break
+            sleep(0.5) #for testing
+            # # call of the function to classifiy the documents
+            # in_path = os.path.join(foldername, file)
+            # out_path = os.path.join('output/')
+
+            # cluster = util.prediction(in_path)
+
+            # # create the directory if not already there
+            # os.makedirs(os.path.join(out_path,str(cluster[0])), exist_ok=True)
+            # # move to the document to the right directory
+            # os.rename(os.path.join(in_path), os.path.join(out_path,str(cluster[0]),file))
+
+            progress_bar.update_bar(index+1, len(filenames))
+        window.close()
+        return 1
+    except Exception as e:
+        print(e)
+        window.close()
+        return 2
+
+    
+
+def no_selection():
+    layout = [[sg.Text('No folder selected!')],
+               [sg.OK()]]
+    window = sg.Window("Warning!", layout, size=(200, 50))
+    while True:
+        event, values = window.read()
+        if event == 'OK' or event == sg.WIN_CLOSED:
+            break
+        
+    window.close()
+
+def done():
+    layout = [[sg.Text('Classification has been processed')],
+               [sg.OK()]]
+    window = sg.Window("Success!", layout, size=(200, 50))
+    while True:
+        event, values = window.read()
+        if event == 'OK' or event == sg.WIN_CLOSED:
+            break
+        
+    window.close()
+
+def error():
+    layout = [[sg.Text('The process was interrupted or an error occured. Please contact your favourite dev.')],
+               [sg.OK()]]
+    window = sg.Window("Warning!", layout, size=(200, 50))
+    while True:
+        event, values = window.read()
+        if event == 'OK' or event == sg.WIN_CLOSED:
+            break
+        
+    window.close()
+
+def make_window():
+
+    # sg.theme('SystemDefaultForReal')
+
+    layout = [
+        [sg.Input(), sg.Button('FolderBrowse')],
+
+        [sg.Text('Files')],
+        [sg.Multiline(key='files', size=(60,30), autoscroll=True)],
+
+        [sg.Button('Classify', auto_size_button=True), sg.Cancel()],    
+    ]
+
+    window = sg.Window('Document Classifier', layout, size=(400, 100))
+    return window
 
 def main():
-    in_path = 'input/'
-    out_path = 'output/'
+    filenames = ''
+    window = make_window()
 
-    files = [file for file in os.listdir(in_path)
-            if file.endswith('.pdf')]
-
-    for file in files:
-        print(f'\r File {file} is in process ...', end= '')
-        sys.stdout.flush()
-        cluster = util.prediction(os.path.join(in_path,file))
-
-        os.makedirs(os.path.join(out_path,str(cluster[0])), exist_ok=True)
-        os.rename(os.path.join(in_path,file), os.path.join(out_path,str(cluster[0]),file))
+    while True:
+        event, values = window.read()
         
-    print(f'\r Process is done.', end= '')
-    sys.stdout.flush()
+        if event == sg.WIN_CLOSED or event == 'Cancel':
+            break
 
+        if event == 'FolderBrowse':
+            foldername = sg.PopupGetFolder('Select folder', no_window=True)
+            if foldername: # `None` when clicked `Cancel` - so I skip it
+                filenames = sorted([f for f in os.listdir(foldername) if f.endswith('.pdf')])
+                # it use `key='files'` to `Multiline` widget
+                window['files'].update("\n".join(filenames))
+                # print(os.path(foldername))
+        if event == 'Classify':
+            if filenames:
+                window.close()
+                if classification(foldername, filenames)==1:
+                    done()
+                    break
+                else:
+                    error()
+                    break
+            else:
+                no_selection()
+
+    window.close()
+
+# for presentation purpose
 def restore():
     in_path = 'input/'
 
@@ -32,6 +138,7 @@ def restore():
         for fn in filenames:
             if fn.lower().endswith('.pdf'):
                 os.rename(os.path.join(parent, fn), os.path.join(in_path, fn))
-                
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     main()
+    # restore()
