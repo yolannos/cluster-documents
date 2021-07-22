@@ -1,7 +1,9 @@
 # DocumentClassifier.ai - Classifying your documents has never been so easy
 [![Python version](https://img.shields.io/badge/Python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
 
-<img align='center' src="assets/logo.png" alt="logo" width="300"/>
+<p align="center">
+<img src="assets/logo.png" alt="logo" width="400"/>
+</p>
 
 <blockquote>Fictionnal speech:
 
