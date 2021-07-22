@@ -189,6 +189,6 @@ def restore():
 
 
 if __name__ == '__main__':
-    # main()
+    main()
     # restore()
     # starting_window()
