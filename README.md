@@ -1,4 +1,11 @@
-# DocumentClassifier.ai - Classifying your documents has never been so easy
+<!-- PROJECT LOGO -->
+
+  <h1 align="center">DocumentClassifier.ai</h1>
+
+  <p align="center">
+    Classifying your documents has never been so easy
+    <br/>
+
 [![Python version](https://img.shields.io/badge/Python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
 
 <p align="center">
@@ -42,7 +49,13 @@ The clusterisation seems to be aleatory. I was not satisfied by the results and 
 
 ## Creation of the app:
 ### Backend
-The models have been dumped so I just had to load them and use the input files to make a prediction and relocate them in the correct folder
+- The app uses a PDF as an input. For the extraction of the text there are two possible approaches:
+  1) PdfToText "selects" the text and extract it -> Really fast but not the most effective
+  2) OCR converts the PDF as an image (PIL) and uses Tesseract (ML) to extract the text: effective but really slow
+    
+If not specified, it uses PdfToText. If the text extracted seems too short it uses automatically Tesseract.
+    
+- The app loads the model and uses the input files to make a prediction and relocate them in the correct folder
 ### Frontend
 For the GUI interface, I used the PySimpleQt library based on the PyQt framework. 
 
