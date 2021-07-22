@@ -1,16 +1,14 @@
 <!-- PROJECT LOGO -->
 
-  <h1 align="center">DocumentClassifier.ai</h1>
+<p align="center">
+<img src="assets/logo.png" alt="logo" width="400"/>
+</p>
 
   <p align="center">
     Classifying your documents has never been so easy
     <br/>
 
 [![Python version](https://img.shields.io/badge/Python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
-
-<p align="center">
-<img src="assets/logo.png" alt="logo" width="400"/>
-</p>
 
 <blockquote>Fictionnal speech:
 
