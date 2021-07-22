@@ -1,3 +1,5 @@
+[![Python version](https://img.shields.io/badge/Python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
+
 <!-- PROJECT LOGO -->
 
 <p align="center">
@@ -8,8 +10,7 @@
     Classifying your documents has never been so easy
     <br/>
 
-[![Python version](https://img.shields.io/badge/Python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
-
+# 
 <blockquote>Fictionnal speech:
 
 [DocumentClassifier.ai](https://github.com/yolannos/cluster-documents) is an app allowing you to easily classify your documents based on a clustering algorithm - aka AI mechanisms.
