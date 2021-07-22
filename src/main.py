@@ -2,7 +2,8 @@ import os
 import sys
 import utils.util as util
 import model.model as cluster
-import utils.extract_text as extract_text
+import src.utils.extract_text as extract_text
+import src.utils.util as util
 
 import PySimpleGUIQt as sg
 from time import sleep
@@ -19,13 +20,14 @@ def classification(foldername, filenames):
     texte = window['-IN-']
     progress_bar = window['+PROGRESS+']
     # loop that would normally do something useful
+    prediction = util.Prediction()
     try:
 
         for index, file in enumerate(filenames):
             # check to see if the cancel button was clicked and exit loop if clicked
             event, values = window.read(timeout=0)
 
-            if event == 'Cancel' or event == None:
+            if event == 'Cancel' or event is None:
                 return 2
                 
             # sleep(0.5) #for testing
@@ -33,7 +35,7 @@ def classification(foldername, filenames):
             in_path = os.path.join(foldername, file)
             out_path = os.path.join('output/')
 
-            cluster = util.prediction(in_path)
+            cluster = prediction.predict(in_path)
 
             # create the directory if not already there
             os.makedirs(os.path.join(out_path,str(cluster[0])), exist_ok=True)
@@ -49,7 +51,6 @@ def classification(foldername, filenames):
         print(e)
         window.close()
         return 2
-
     
 
 def no_selection():
@@ -63,6 +64,7 @@ def no_selection():
         
     window.close()
 
+
 def done():
     layout = [[sg.Text('Classification has been processed')],
                [sg.OK()]]
@@ -74,6 +76,7 @@ def done():
         
     window.close()
 
+
 def error():
     layout = [[sg.Text('The process was interrupted or an error occured. Please contact your favourite dev.')],
                [sg.OK()]]
@@ -84,6 +87,7 @@ def error():
             break
         
     window.close()
+
 
 def make_window():
 
@@ -101,6 +105,7 @@ def make_window():
 
     window = sg.Window('Document Classifier', layout, size=(400, 100))
     return window
+
 
 def main():
 
@@ -135,6 +140,7 @@ def main():
 
     window.close()
 
+
 def starting_window():
     layout = [
             [sg.ProgressBar(1, orientation='h', auto_size_text= True, key='+PROGRESS+', bar_color=('blue',None))],
@@ -150,7 +156,7 @@ def starting_window():
             10:"Loading some other components ...",
             11: "Almost there",
             13: "Here you go, motors launched!"}
-
+    status = 0
     for i in range(16):
         # check to see if the cancel button was clicked and exit loop if clicked
         event, values = window.read(timeout=0)
@@ -163,10 +169,15 @@ def starting_window():
             text_bar.Update(text[i])
         except:
             pass
+        if i >=15:
+            status = 1
 
     window.close()
-    main()
-    
+    if status != 0:
+        main()
+
+
+
 # for presentation purpose
 def restore():
     in_path = 'input/'
@@ -176,8 +187,8 @@ def restore():
             if fn.lower().endswith('.pdf'):
                 os.rename(os.path.join(parent, fn), os.path.join(in_path, fn))
 
+
 if __name__ == '__main__':
     # main()
-    restore()
-    # sg.main()
+    # restore()
     # starting_window()

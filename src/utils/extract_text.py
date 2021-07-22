@@ -23,6 +23,7 @@ class ExtractText():
         '''       
         self.file = file              
         self.path_txt_ = 'temp/'
+
         self.method = method
         self._threshold_size = 2000 # minimum length expected for a pdf (arbitrary, based on the smallest document found)
 
