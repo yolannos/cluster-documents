@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 
 <p align="center">
-<img src="assets/logo.png" alt="logo" width="400"/>
+<img src="assets/logo_stretch.png" alt="logo" width="400"/>
 </p>
 
   <p align="center">
