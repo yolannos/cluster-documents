@@ -12,7 +12,7 @@ from time import sleep
 def classification(foldername, filenames):
     # layout the form
     layout = [[sg.Text('Processing ... ', key='-IN-')],
-              [sg.ProgressBar(1, orientation='h', auto_size_text= True, key='+PROGRESS+')],
+              [sg.ProgressBar(1, orientation='h', auto_size_text=True, key='+PROGRESS+')],
               [sg.Cancel()]]
 
     # create the form`
@@ -189,6 +189,6 @@ def restore():
 
 
 if __name__ == '__main__':
-    main()
-    # restore()
+    # main()
+    restore()
     # starting_window()
