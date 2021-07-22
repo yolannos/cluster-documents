@@ -7,3 +7,6 @@ pandas==1.2.4
 Pillow==8.3.1
 rich==10.6.0
 scikit_learn==0.24.2
+fuzzy-c-means==1.4.0
+wordcloud==1.8.1
+PySimpleGUIQt==0.35.0
