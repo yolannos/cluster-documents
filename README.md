@@ -28,8 +28,11 @@ The data used for this challenge comes from [Kleister Charity](https://github.co
 It was solved in 1 week.
 
 
-### __Demo__
-<img src="assets/demo.gif" alt="demo" width="500"/>
+# __Demo__
+
+<p align="center">
+<img src="assets/demo.gif" alt="logo" width="600"/>
+</p>
 
 # Process:
 ## Training of the model:
